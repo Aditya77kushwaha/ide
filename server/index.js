@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
 const cors = require("cors");
+const compiler = require('compile-code');
 
 app.use(
     cors({
@@ -16,7 +17,12 @@ const port = 30001
 
 app.post('/', (req, res) => {
     console.log(req.body);
-    res.json({got:"true"})
+    compiler.init()
+
+    compiler.compile(2, '#include <iostream>\n using namespace std;\n int main() {\ncout << "Hello World";\nreturn 0;\n}', "", (data) => {
+        console.log(data);
+        res.json({ data: data })
+    })
 })
 
 app.listen(port, () => {

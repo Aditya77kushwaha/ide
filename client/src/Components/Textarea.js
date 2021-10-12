@@ -66,9 +66,9 @@ const Textarea = (props) => {
       code: text,
     })
       .then(function (response) {
-        if (response.data.got)
-          console.log("Got the code");
-        // console.log("Response ",response);
+        // if (response.data.got)
+        //   console.log("Got the code");
+        console.log("Response ",response);
       })
       .catch(function (error) {
         console.log(error);
@@ -96,7 +96,7 @@ const Textarea = (props) => {
           <h3 className="bg-green-500 rounded-md p-1 m-1">Could be read in {((text === '') ? 0 : text.replace(/\s+/g, ' ').trim().split(' ').length) * (60 / 200)} seconds</h3>
         </div>
       </form>
-      <button class="btn btn-primary btn-lg btn-block" onClick={() => { compileCode() }}>Run</button>
+      <button className="btn btn-primary btn-lg btn-block" onClick={() => { compileCode() }}>Run</button>
     </>
   )
 }
