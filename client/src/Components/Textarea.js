@@ -5,6 +5,7 @@ const Textarea = (props) => {
   const [text, setText] = useState('');
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [lang, setLang] = useState('C');
 
   const textareaChange = (e) => {
     setText(e.target.value);
@@ -67,6 +68,7 @@ const Textarea = (props) => {
     axios.post('http://localhost:30001/compile', {
       code: text,
       input: input,
+      lang: lang,
     })
       .then(function (response) {
         // if (response.data.got)
@@ -81,8 +83,18 @@ const Textarea = (props) => {
   return (
     <>
       <form className="container">
+      <div onChange={(e)=>{setLang(e.target.value)}}>
+          {/* <label className="form-check-label"> */}
+            <input className="form-check-input mx-2" type="radio" value="C" name="lang"/>C
+            <input className="form-check-input mx-2" type="radio" value="C++" name="lang"/>C++
+            <input className="form-check-input mx-2" type="radio" value="Python" name="lang"/>Python
+            <input className="form-check-input mx-2" type="radio" value="Java" name="lang"/>Java
+          {/* </label> */}
+        </div>
+        
         <div className="flex items-center justify-center mt-8 mb-7 text-xl">
           <textarea className={`${props.mode}` === "light" ? "p-4 border-4 border-blue-500 focus:border-blue-400" : "p-4 border-4 border-yellow-500 focus:border-yellow-400 text-white bg-gray-800"} rows="5" cols="55" value={text} onChange={textareaChange} placeholder="Enter your text here..." />
+          <button className="btn btn-primary btn-sm" onClick={() => { compileCode() }}>Run</button>
         </div >
         <div className="flex items-center justify-center mt-8 mb-7 text-xl">
           <textarea rows="3" cols="25" className="mx-3" value={input} onChange={(e)=>{setInput(e.target.value)}} placeholder='Input'></textarea>
@@ -104,7 +116,6 @@ const Textarea = (props) => {
           <h3 className="bg-green-500 rounded-md p-1 m-1">Could be read in {((text === '') ? 0 : text.replace(/\s+/g, ' ').trim().split(' ').length) * (60 / 200)} seconds</h3>
         </div>
       </form>
-      <button className="btn btn-primary btn-lg btn-block" onClick={() => { compileCode() }}>Run</button>
     </>
   )
 }
