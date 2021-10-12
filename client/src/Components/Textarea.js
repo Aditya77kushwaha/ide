@@ -3,6 +3,8 @@ import axios from "axios";
 
 const Textarea = (props) => {
   const [text, setText] = useState('');
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
 
   const textareaChange = (e) => {
     setText(e.target.value);
@@ -64,11 +66,13 @@ const Textarea = (props) => {
   const compileCode = () => {
     axios.post('http://localhost:30001/compile', {
       code: text,
+      input: input,
     })
       .then(function (response) {
         // if (response.data.got)
         //   console.log("Got the code");
-        console.log("Response ",response);
+        console.log("Response ",response.data.data);
+        {response.data.data.stderr ? setOutput(response.data.data.stderr) : setOutput(response.data.data.stdout)}
       })
       .catch(function (error) {
         console.log(error);
@@ -79,6 +83,10 @@ const Textarea = (props) => {
       <form className="container">
         <div className="flex items-center justify-center mt-8 mb-7 text-xl">
           <textarea className={`${props.mode}` === "light" ? "p-4 border-4 border-blue-500 focus:border-blue-400" : "p-4 border-4 border-yellow-500 focus:border-yellow-400 text-white bg-gray-800"} rows="5" cols="55" value={text} onChange={textareaChange} placeholder="Enter your text here..." />
+        </div >
+        <div className="flex items-center justify-center mt-8 mb-7 text-xl">
+          <textarea rows="3" cols="25" className="mx-3" value={input} onChange={(e)=>{setInput(e.target.value)}} placeholder='Input'></textarea>
+          <textarea rows="3" cols="25" className="mx-3" value={output} onChange={(e)=>{setOutput(e.target.value)}} placeholder='Output'></textarea>
         </div>
         <div className="flex items-center justify-center text-white font-bold">
           <button className={`${props.mode}` === "light" ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6" : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"} onClick={uppercaseText}>Convert to Uppercase</button>

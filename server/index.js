@@ -19,7 +19,7 @@ app.post('/compile', (req, res) => {
     console.log(req.body);
     compiler.init()
 
-    compiler.compile(2, req.body.code, "", (data) => {
+    compiler.compile(3, req.body.code, req.body.input, (data) => {
         console.log(data);
         res.json({ data: data })
     })
