@@ -89,15 +89,6 @@ const Textarea = (props) => {
   return (
     <>
       <form className="container">
-      <div onChange={(e)=>{setLang(e.target.value)}}>
-          {/* <label className="form-check-label"> */}
-            <input className="form-check-input mx-2" type="radio" value="C" name="lang"/>C
-            <input className="form-check-input mx-2" type="radio" value="C++" name="lang"/>C++
-            <input className="form-check-input mx-2" type="radio" value="Python" name="lang"/>Python
-            <input className="form-check-input mx-2" type="radio" value="Java" name="lang"/>Java
-          {/* </label> */}
-        </div>
-        
         <div className="flex items-center justify-center mt-8 mb-7 text-xl">
           <textarea
             className={
