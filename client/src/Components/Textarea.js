@@ -62,7 +62,7 @@ const Textarea = (props) => {
     }
   }
   const compileCode = () => {
-    axios.post('http://localhost:30001/', {
+    axios.post('http://localhost:30001/compile', {
       code: text,
     })
       .then(function (response) {

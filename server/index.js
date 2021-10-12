@@ -15,11 +15,11 @@ app.use(express.json());
 
 const port = 30001
 
-app.post('/', (req, res) => {
+app.post('/compile', (req, res) => {
     console.log(req.body);
     compiler.init()
 
-    compiler.compile(2, '#include <iostream>\n using namespace std;\n int main() {\ncout << "Hello World";\nreturn 0;\n}', "", (data) => {
+    compiler.compile(2, req.body.code, "", (data) => {
         console.log(data);
         res.json({ data: data })
     })
