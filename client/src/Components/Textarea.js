@@ -73,8 +73,8 @@ const Textarea = (props) => {
         lang: lang,
       })
       .then(function (response) {
-        // if (response.data.got)
-        //   console.log("Got the code");
+        if (response.data.got)
+          console.log("Got the code");
         console.log("Response ", response.data.data);
         {
           response.data.data.stderr
