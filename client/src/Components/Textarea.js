@@ -73,14 +73,12 @@ const Textarea = (props) => {
         lang: lang,
       })
       .then(function (response) {
-        if (response.data.got)
-          console.log("Got the code");
+        if (response.data.got) console.log("Got the code");
         console.log("Response ", response.data.data);
-        {
-          response.data.data.stderr
-            ? setOutput(response.data.data.stderr)
-            : setOutput(response.data.data.stdout);
-        }
+
+        response.data.data.stderr
+          ? setOutput(response.data.data.stderr)
+          : setOutput(response.data.data.stdout);
       })
       .catch(function (error) {
         console.log(error);
@@ -91,10 +89,20 @@ const Textarea = (props) => {
       <form className="container">
         <div className="flex items-center justify-center mt-8 mb-7 text-xl">
           <textarea
-            className={
-              `${props.mode}` === "light"
-                ? "p-4 border-4 border-blue-500 focus:border-blue-400"
-                : "p-4 border-4 border-yellow-500 focus:border-yellow-400 text-white bg-gray-800"
+            style={
+              props.mode === "light"
+                ? {
+                    background: "#ebeef2",
+                    color: "black",
+                    padding: "10px",
+                    maxHeight: "300px",
+                  }
+                : {
+                    background: "white",
+                    color: "black",
+                    padding: "10px",
+                    maxHeight: "300px",
+                  }
             }
             rows="5"
             cols="55"
@@ -108,6 +116,7 @@ const Textarea = (props) => {
               onClick={() => {
                 compileCode();
               }}
+              style={{ marginRight: "10px" }}
             >
               Run
             </button>
@@ -128,6 +137,7 @@ const Textarea = (props) => {
             onChange={(e) => {
               setInput(e.target.value);
             }}
+            style={{ maxHeight: "150px" }}
             placeholder="Input"
           ></textarea>
           <textarea
@@ -138,73 +148,67 @@ const Textarea = (props) => {
             onChange={(e) => {
               setOutput(e.target.value);
             }}
+            style={{ maxHeight: "150px" }}
             placeholder="Output"
           ></textarea>
         </div>
-        <div className="flex items-center justify-center text-white font-bold">
-          <button
-            className={
-              `${props.mode}` === "light"
-                ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6"
-                : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"
-            }
-            onClick={uppercaseText}
-          >
-            Convert to Uppercase
-          </button>
-          <button
-            className={
-              `${props.mode}` === "light"
-                ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6"
-                : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"
-            }
-            onClick={lowercaseText}
-          >
-            Convert to Lowercase
-          </button>
-          <button
-            className={
-              `${props.mode}` === "light"
-                ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6"
-                : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"
-            }
-            onClick={clearText}
-          >
-            Clear Text
-          </button>
+        <div class="container" style={{ marginLeft: "-20px" }}>
+          <div class="row" style={{ margin: "10px" }}>
+            <div class="col-sm">
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={uppercaseText}
+              >
+                Convert to Uppercase
+              </button>
+            </div>
+            <div class="col-sm">
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={lowercaseText}
+              >
+                Convert to Lowercase
+              </button>
+            </div>
+            <div class="col-sm">
+              <button
+                className="btn btn-primary btn-md"
+                style={{ padding: "15px 32px" }}
+                onClick={clearText}
+              >
+                Clear Text
+              </button>
+            </div>
+          </div>
+          <div class="row" style={{ margin: "10px" }}>
+            <div class="col-sm">
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={capitalizeText}
+              >
+                Capitalize Sentence
+              </button>
+            </div>
+            <div class="col-sm">
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={capitalizeWords}
+              >
+                Capitalize Each Word
+              </button>
+            </div>
+            <div class="col-sm">
+              <button
+                className="btn btn-primary btn-sm"
+                onClick={remExtraSpaces}
+              >
+                Remove Extra Spaces
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center justify-center text-white font-bold">
-          <button
-            className={
-              `${props.mode}` === "light"
-                ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6"
-                : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"
-            }
-            onClick={capitalizeText}
-          >
-            Capitalize Sentence
-          </button>
-          <button
-            className={
-              `${props.mode}` === "light"
-                ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6"
-                : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"
-            }
-            onClick={capitalizeWords}
-          >
-            Capitalize Each Word
-          </button>
-          <button
-            className={
-              `${props.mode}` === "light"
-                ? "bg-blue-600 hover:bg-blue-700 py-2 px-4 rounded m-1 w-1/6"
-                : "text-black bg-yellow-500 hover:bg-yellow-600 py-2 px-4 rounded m-1 w-1/6"
-            }
-            onClick={remExtraSpaces}
-          >
-            Remove Extra Spaces
-          </button>
-        </div>
+        <div className="flex items-center justify-center text-white font-bold"></div>
+        <div className="flex items-center justify-center text-white font-bold"></div>
         <div className="w-1/2 flex flex-col mx-auto my-2">
           <h1
             className={
